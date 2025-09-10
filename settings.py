@@ -1,5 +1,3 @@
-
-
 """
 Django settings for testproject project.
 
@@ -54,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'testproject.urls'
@@ -80,15 +79,27 @@ WSGI_APPLICATION = 'testproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {  
-    'default': {  
-        'ENGINE': 'django.db.backends.mysql',  
-        'NAME':'Online_Exam',
-        'USER':'root',  
-        'PASSWORD':'pravin', 
-        'HOST':'localhost',  
-        'PORT':'3306'  
-    }  
+# DATABASES = {  
+#     'default': {  
+#         'ENGINE': 'django.db.backends.mysql',  
+#         'NAME':'Online_Exam',
+#         'USER':'root',  
+#         'PASSWORD':'pravin', 
+#         'HOST':'localhost',  
+#         'PORT':'3306'  
+#     }  
+# }
+# import os
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.getenv('Online_Exam'),
+        'USER': os.getenv('root'),
+        'PASSWORD': os.getenv('pravin'),
+        'HOST': os.getenv('localhost'),
+        'PORT': os.getenv('3306'),
+    }
 }
 
 
@@ -129,6 +140,8 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 STATICFILES_DIRS = [ BASE_DIR / "static" ]  # or your appropriate path
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
